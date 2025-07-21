@@ -1,18 +1,18 @@
 # Agroecology Survey Data: tabular, wide format
 
-Recommendations for organizing survey data in the Agroecology partnership following a wide, spreadsheet format approach. This structure is inspired by the data structure American National Election Studies (ANES, 2022) and the recommendations of Zimmer et al. (2024), applying a tidy data approach (Wickham, 2014) with usability on mind and enabling a later transformation into Open Linked Data as structured in The Survey Ontology (Scrocca et al., 2021).
+Recommendations for organizing survey data in the Agroecology partnership following a wide, spreadsheet format approach. This structure is inspired by the data structure of the American National Election Studies (ANES, 2022), the recommendations of Zimmer et al. (2024), while applying a tidy data approach (Wickham, 2014) with usability on mind and the enabling of a later transformation into Open Linked Data as structured in The Survey Ontology (Scrocca et al., 2021).
 
 ## Codebook
 
-Codebooks contain all the information needed to explain the questions formulated in the survey. An unique identifier within the survey (a code) is assigned to each question, allowing later to link all the information about the question to the answers provided by the participants. Codebooks are typically stored as `pdf`, `docx` or `xlsx` files. For the sake of interoperability, we propose to use text delimited files. These type of files are largely used in data science. they have several advantages, including easy machine-readability and being an open format with no owner, which ensures data will remain readable and understandable by many different softwares for a long time. 
+Codebooks are files that **explain the questions** formulated in the survey. An unique identifier (a code) is assigned to each question, linking the information about the questions with the answers provided by the participants. Codebooks are typically stored as `pdf`, `docx` or `xlsx` files. Having interoperability on mind, we propose to use **text delimited files** such as `csv`. These type of files are largely used in data science. they have several advantages, including easy machine-readability and being an open format with no owner, which ensures data will remain readable and understandable by many different softwares for a long time. 
 
-This is a `csv` file, delimited by semicolons `;`. We avoid colons `,` as these can be used in free text, open questions. They would affect the structure of the data. We recommend to prohibit the use of semicolons `;` in the answers provided by the participants, the questions, and in general in any use that is not deliming the columns of the table.
+We propose a `csv` file, delimited by semicolons `;`. We avoid using colons `,` as separators because these can be used in free text, open questions. They would affect the structure of the data. We recommend to prohibit the use of semicolons `;` in the answers provided by the participants, the questions, and in general in any use that is not deliming the columns of the table.
 
 The codebook can be used as well during the design of the survey.
 
 The example below shows an hypothetical survey codebook about the user satisfaction using an online platform. 
 
-`./codebook.csv`
+`./data/codebook.csv`
 
 | Code            | Label        | Type    | QuestionText                             | Values                                                       | Cardinality | QuestionType |
 | --------------- | ------------ | ------- | ---------------------------------------- | ------------------------------------------------------------ | ----------- | ------------ |
@@ -43,23 +43,25 @@ Each row in the codebook describes a survey question. Below is an explanation of
 
 ## Responses
 
-Answers to the survey are recorded in another `responses.csv` file. Every row of this file corresponds to a participant, and every column is named after the `code` in `codebook.csv`. This allows to link easily the information about the questions without getting the responses file full of details that difficult the analysis.
+**Answers to the survey** are recorded in the `./data/responses.csv` file. **Every row is the answers of a participant**, and **every column is named after the `code`** in `codebook.csv`. This allows to link easily the information about the questions without getting the responses file full of details that difficult the analysis.
+
+`./data/responses.csv`
 
 | respondent_id | Q1_age | Q2_gender | Q3_satisfaction | Q4_improvement                          |
 | ------------- | ------ | --------- | --------------- | --------------------------------------- |
 | 001           | 34     | female    | 4               | I think the platform is user-friendly   |
 | 002           | 29     | male      | 5               | Needs better support for collaboration. |
 
-We recommend to include an unique identifier for every respondent, here named as `respondent_id`. This allows to annomymize the survey without loosing the link to the private information about the respondents that might have been collected (e.g. name, email, address) and that it must be treated according to the European Parliament Directive 95/46/EC (General Data Protection Regulation, or GDPR). Personal data collected in the Agroecology partnership must never be published or leaked in any form. 
+**We recommend to include an unique identifier for every respondent**, here named as `respondent_id`. **This allows to annomymize the survey without loosing the link to private information** about the respondents that might have been collected (e.g. name, email, address) and that it must be treated according to the European Parliament Directive 95/46/EC (General Data Protection Regulation, or GDPR). Personal data collected in the Agroecology partnership must never be published or leaked in any form. 
 
 
 
 ## References
 
-ANES (2020) Time Series Study Full Release: User Guide and Codebook.” https://electionstudies.org/wp-content/uploads/2022/02/anes_timeseries_2020_userguidecodebook_20220210.pdf.
+ANES (2020). *Time Series Study Full Release: User Guide and Codebook*. https://electionstudies.org/wp-content/uploads/2022/02/anes_timeseries_2020_userguidecodebook_20220210.pdf
 
-Mario Scrocca, Damiano Scandolari, Gloria Re Calegari, Ilaria Baroni and Irene Celino. *The Survey Ontology: Packaging Survey Research as Research Objects*, Proceedings of the 2nd Workshop on Data and Research Objects Management for Linked Open Science - co-located with ISWC 2021, https://doi.org/10.4126/FRL01-006429412, 2021.
+Scrocca, M., Scandolari, D., Re Calegari, G., Baroni, I., & Celino, I. (2021). The Survey Ontology: Packaging survey research as research objects. In *Proceedings of the 2nd Workshop on Data and Research Objects Management for Linked Open Science – co-located with ISWC 2021*. https://doi.org/10.4126/FRL01-006429412
 
-Wickham, H. . (2014). Tidy Data. *Journal of Statistical Software*, *59*(10), 1–23. https://doi.org/10.18637/jss.v059.i10
+Wickham, H. (2014). Tidy data. *Journal of Statistical Software, 59*(10), 1–23. https://doi.org/10.18637/jss.v059.i10
 
-Zimmer, S. A., Powell, R. J., & Velásquez, I. C. (2024). *Exploring Complex Survey Data Analysis Using R: A Tidy Introduction with {srvyr} and {survey}*. Chapman & Hall: CRC Press.
+Zimmer, S. A., Powell, R. J., & Velásquez, I. C. (2024). *Exploring complex survey data analysis using R: A tidy introduction with {srvyr} and {survey}*. Chapman & Hall/CRC Press. https://tidy-survey-r.github.io/tidy-survey-book/
